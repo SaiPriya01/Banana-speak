@@ -1,23 +1,19 @@
-var txtInput = document.querySelector("#txt-input");
 var btnTranslate = document.querySelector("#btn-translate");
-var outputDiv=document.querySelector("#output");
-// outputDiv.innerText="Sai Priya"
-// console.log(txtInput);
-// console.log(btnTranslate);
-var serverURL="https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json";
-function getTranslationURL(text){
-    return serverURL+"? text=" +text
+var txtInput = document.querySelector("#txt-input");
+var outputDiv = document.querySelector(".output");
+
+var serverURL = "https://api.funtranslations.com/translate/minion.json";
+
+function getTranslation(Txt) {
+    return serverURL + "?text=" + Txt;
 }
-function clickEventHandler() {
-    // console.log("Clicked");
-    // console.log("input", txtInput.value);
-    var inputTxt=txtInput;
-    fetch(getTranslationURL(inputTxt))
-    .then(response => response.json())
-    .then(json => {
-        var translatedText=json.contents.translated;
-        outputDiv.innerText=translatedText;
-    })
-};
-// clickEventHandler is Callback function
-btnTranslate.addEventListener("click", clickEventHandler);
+function clickHandler() {
+    var inputTxt = txtInput.value;
+    console.log(getTranslation(inputTxt))
+    fetch(getTranslation(inputTxt))
+        .then(response => response.json())
+        .then(json => {
+            outputDiv.innerText = json.contents.translated;
+        })
+}
+btnTranslate.addEventListener("click", clickHandler);
